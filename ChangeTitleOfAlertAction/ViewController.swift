@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var selectedIndexPath:IndexPath!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,17 +38,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        showOptions()
+        showOptions(indexPath: indexPath)
     }
     
-    func showOptions(){
+    func showOptions(indexPath:IndexPath){
         
-        var enable = "Enable"
-        let disable = "Disable"
+        var title = "Enable"
         
-        let applyOn = UIAlertAction(title: enable, style: .default, handler: { (action: UIAlertAction!) in
+        if selectedIndexPath == indexPath{
+            title = "Disable"
+        }
+        
+        let applyOn = UIAlertAction(title: title, style: .default, handler: { (action: UIAlertAction!) in
             
-            enable = disable
+            self.selectedIndexPath = indexPath
         })
         
         let actionSheet = configureActionSheet()
